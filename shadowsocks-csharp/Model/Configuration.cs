@@ -10,6 +10,8 @@ namespace Shadowsocks.Model
     [Serializable]
     public class Configuration
     {
+        public string version;
+
         public List<Server> configs;
 
         // when strategy is set, index is ignored
@@ -20,6 +22,7 @@ namespace Shadowsocks.Model
         public bool shareOverLan;
         public bool isDefault;
         public int localPort;
+        public bool portableMode = true;
         public string pacUrl;
         public bool useOnlinePac;
         public bool secureLocalPac = true;
@@ -99,6 +102,7 @@ namespace Shadowsocks.Model
 
         public static void Save(Configuration config)
         {
+            config.version = UpdateChecker.Version;
             if (config.index >= config.configs.Count)
                 config.index = config.configs.Count - 1;
             if (config.index < -1)
